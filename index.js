@@ -66,19 +66,19 @@ async function checkWeather(city)
 
         switch(jsonDataValue.weather[0].main){
             case 'Clouds':
-                weather_img.src="assets/clear.png";
+                weather_img.src="https://github.com/Mann-27/Weather-WebApp/blob/main/assets/clear.png";
                 break;
             case 'Clear':
-                weather_img.src="assets/clear.png";
+                weather_img.src="https://github.com/Mann-27/Weather-WebApp/blob/main/assets/clear.png";
                 break;
             case 'Haze':
-                weather_img.src="assets/rain.png";
+                weather_img.src="https://github.com/Mann-27/Weather-WebApp/blob/main/assets/rain.png";
                 break;
             case 'Mist':
-                weather_img.src="assets/mist.png";
+                weather_img.src="https://github.com/Mann-27/Weather-WebApp/blob/main/assets/mist.png";
                 break;
             case 'Snow':
-                weather_img.src="assets/snow.png";
+                weather_img.src="https://github.com/Mann-27/Weather-WebApp/blob/main/assets/snow.png";
                 break;
         }
        console.log(jsonDataValue);
