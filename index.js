@@ -11,31 +11,60 @@ const weather_body=document.querySelector('.weather-body');
 
 async function checkWeather(city)
 {
+
     const api_key="6e33251577b33dc0a798f782b10f90ec";
     const url=`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${api_key}`;
-    const data=await fetch(`${url}`).then((response)=>response.json())
-    if(data.cod==='404'){
-        locationNotFound.style.display="flex";
-        weather_body.style.display="none";
-        console.log("Unable to fetch.");
-        return;
-    }   
+    try{
+        const data=await fetch(`${url}`);
+        const jsonDataValue=await (data.json());
+    
+   
         locationNotFound.style.display="none";
         weather_body.style.display="flex";
-        console.log(data);
+        console.log(jsonDataValue);
         const cityName=document.querySelector('.city');
-        cityName.innerText=data.name;
+        cityName.innerText=jsonDataValue.name;
+
         const formattedDateTime=new Date();
         const date=document.querySelector('.date');
-        date.innerHTML=`${formattedDateTime.toLocaleString()}`;
-      
-        temperature.innerHTML=`${Math.round(data.main.temp-273.15)}°C`;
-        description.innerHTML=`${data.weather[0].description}`;
-        console.log();
-        humidity.innerHTML=`${data.main.humidity}%`;
-        wind_speed.innerHTML=`${data.wind.speed}Km/H`;
+        // date.innerHTML=`${formattedDateTime.toDateString()}`;
 
-        switch(data.weather[0].main){
+        const timezoneOffset=jsonDataValue.timezone;
+        const cityTime=document.querySelector('.time');
+
+        function updateCityDateTime(timezoneOffset){
+            const localTime=new Date();
+            const utcTime=localTime.getTime()+localTime.getTimezoneOffset()*60000;
+            const cityTimeInMs = utcTime + (timezoneOffset * 1000); // Convert seconds to milliseconds
+            const cityLocalTime = new Date(cityTimeInMs);
+             // Display the formatted date and time
+            cityTime.innerText = cityLocalTime.toLocaleString('en-US', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'numeric', 
+                day: 'numeric', 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                second: '2-digit', 
+                hour12: true 
+            });
+
+        }
+        updateCityDateTime(timezoneOffset);
+
+        // // Optionally, keep updating the time every second
+        //     setInterval(() => {
+        //         updateCityDateTime(timezoneOffset);
+        //     }, 1000);
+
+      
+        temperature.innerHTML=`${Math.round(jsonDataValue.main.temp-273.15)}°C`;
+        description.innerHTML=`${jsonDataValue.weather[0].description}`;
+        console.log();
+        humidity.innerHTML=`${jsonDataValue.main.humidity}%`;
+        wind_speed.innerHTML=`${jsonDataValue.wind.speed}Km/H`;
+
+        switch(jsonDataValue.weather[0].main){
             case 'Clouds':
                 weather_img.src="/assets/cloud.png";
                 break;
@@ -52,8 +81,15 @@ async function checkWeather(city)
                 weather_img.src="/assets/snow.png";
                 break;
         }
-       console.log(data);
+       console.log(jsonDataValue);
     }
+    catch(error){
+        locationNotFound.style.display="flex";
+        weather_body.style.display="none";
+        console.error("Unable to fetch api.");
+        return;
+    }
+}
     
     
 

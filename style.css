@@ -6,22 +6,26 @@
     padding:0;
     box-sizing: border-box;
     border:none;
+    font-family: "Josefin Sans";
     
 }
 h1{
     color:white;
-    font-family: "Helvetica Neue";
+    text-align: center;
     font-family: "Josefin Sans";
     display: flex;
     align-items: center;
+    justify-content: center;
     flex-direction: column;
 }
 h1 span{
     color:gold;
 }
+
 body{
     min-height:100vh;
     display: flex;
+    
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -30,6 +34,10 @@ body{
    
 }
 .container{
+   
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     width: 400px;
     height:min-content;
     background-color: white;
@@ -64,6 +72,7 @@ body{
     cursor:pointer;
     margin-left:2px;
     font-size: 21px;
+
 
 }
 /* .search-box button{
@@ -113,12 +122,16 @@ body{
 }
 .cityDetails{
     margin-top:10px;
-    display: flex;
+    text-align: center;
+    /* display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: center; */
+    height:100px;
     flex-direction: column;
     font-weight: 700;
     font-size:25px;
+   
 }
 .weather-details{
     width:100%;
