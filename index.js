@@ -52,11 +52,7 @@ async function checkWeather(city)
         }
         updateCityDateTime(timezoneOffset);
 
-        // // Optionally, keep updating the time every second
-        //     setInterval(() => {
-        //         updateCityDateTime(timezoneOffset);
-        //     }, 1000);
-
+   
       
         temperature.innerHTML=`${Math.round(jsonDataValue.main.temp-273.15)}°C`;
         description.innerHTML=`${jsonDataValue.weather[0].description}`;
